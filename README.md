@@ -4,7 +4,11 @@ While Go does already include a [mime.TypeByExtension](https://golang.org/pkg/mi
 
 ## Usage
 
-    extension := []byte(`html`)
-    mimetype := filemime.Bytes(extension) // text/html
-    extension2 := `/home/mystuff/work.pdf`
-    mimetype = filemime.String(extension2) // application/pdf
+    f1 := []byte(`html`)
+    mimetype := filemime.Get(f1) // text/html
+    f2 := `/home/mystuff/work.pdf`
+    mimetype = filemime.Get(string(f2)) // application/pdf
+	// filemime.Get(f) is the same as filemime.Ext2Mime(filemime.GetExt(f))
+    f3 := `http://www.whatever.com/somefile.jpg`
+	ext := filemime.GetExt(f3) // jpg (in bytes)
+	mimetype = filemime.Ext2Mime(ext) // image/jpeg

@@ -30,7 +30,8 @@ func init() {
 	ext.Optimize()
 }
 
-func Extension(b []byte) string {
+// Returns the mime type from the extension
+func Ext2Mime(b []byte) string {
 	if i, exists := ext.Find(b); exists {
 		return mimetype[i]
 	} else {
@@ -38,20 +39,21 @@ func Extension(b []byte) string {
 	}
 }
 
-// Returns the mime type of an extension passed in a slice of bytes
-func Bytes(b []byte) string {
-	if len(b) < 2 {
-		return Extension(b)
+// Returns the extension from the filename
+func GetExt(b []byte) []byte {
+	i := len(b)
+	if i < 2 {
+		return b
 	}
-	for i := len(b) - 2; i > 0; i-- {
+	for i-=2; i>0; i-- {
 		if b[i] == '.' {
-			return Extension(b[i+1:])
+			return b[i+1:]
 		}
 	}
-	return Extension(b)
+	return b
 }
 
-// Returns the mime type of an extension passed as a string
-func String(b string) string {
-	return Bytes([]byte(b))
+// Returns the mime type of a filename
+func Get(b []byte) string {
+	return Ext2Mime(GetExt(b))
 }
