@@ -10,5 +10,5 @@ While Go does already include a [mime.TypeByExtension](https://golang.org/pkg/mi
     mimetype = filemime.Get([]byte(f2)) // application/pdf
 	// filemime.Get(f) is the same as filemime.Ext2Mime(filemime.GetExt(f))
     f3 := `http://www.whatever.com/somefile.jpg`
-	ext := filemime.GetExt(f3) // jpg (in bytes)
+	ext := filemime.GetExt([]byte(f3)) // jpg (in bytes)
 	mimetype = filemime.Ext2Mime(ext) // image/jpeg
